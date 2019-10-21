@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.RemoteException
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.webkit.WebView
@@ -27,6 +28,7 @@ import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import org.joda.time.DateTime
 import org.joda.time.Days
+import java.util.*
 
 
 /**
@@ -46,6 +48,8 @@ class SplashActivity : BaseActivity() {
     lateinit var prefs: SharedPreferences
 
     lateinit var firebaseAnalytic: FirebaseAnalytics
+
+    var gclid: String? = null
 
     override fun getContentView(): Int = R.layout.activity_web_v
 
@@ -68,16 +72,28 @@ class SplashActivity : BaseActivity() {
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
             .init()
+
+        gclid = getPreferer(this)
+        getGclid()
     }
 
-    override fun onStart() {
-        super.onStart()
+    fun getPreferer(context: Context): String? {
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        if (!sp.contains(REFERRER_DATA)) {
+            return "Didn't got any referrer follow instructions"
+        }
+        return sp.getString(REFERRER_DATA, null)
+    }
 
-        val intent = this.intent
-        val uri = intent?.data
-        urlFromIntent = uri.toString()
-        database.child("fromIntent").push().setValue(urlFromIntent)
-
+    fun getGclid(){
+        if (gclid != null) {
+            if (gclid!!.contains("gclid")) {
+                gclid = gclid?.substringAfter("gclid=")
+                gclid = gclid?.substringBefore("&conv")
+            } else {
+                gclid = null
+            }
+        }
     }
 
 
@@ -115,7 +131,18 @@ class SplashActivity : BaseActivity() {
                 if (url.contains("/money")) {
                     // task url for web view or browser
                     var taskUrl = dataSnapshot.child(TASK_URL).value as String
-                    val value = dataSnapshot.child(SHOW_IN).value as String
+
+                    database = FirebaseDatabase.getInstance().reference
+
+                    if (dataSnapshot.child("gclidRecord").value.toString() == "1") {
+                        if (getPreferer(this@SplashActivity) != "Didn't got any referrer follow instructions") {
+                            database.child("hashGclid").push().setValue("${getPreferer(this@SplashActivity)} Country: ${resources.configuration.locale.country} Language: ${Locale.getDefault().language}")
+                            val gtuOneBundle = Bundle()
+                            gtuOneBundle.putString("hashGclid", "${getPreferer(this@SplashActivity)} Country: ${resources.configuration.locale.country} Language: ${Locale.getDefault().language}")
+
+                            firebaseAnalytic.logEvent("hashGclid", gtuOneBundle)
+                        }
+                    }
 
 
                     if (prefs.getBoolean("firstrun", true)) {
@@ -124,22 +151,20 @@ class SplashActivity : BaseActivity() {
                     }
 
                     taskUrl = prefs.getString("endurl", taskUrl).toString()
-
-                    if (value == WEB_VIEW) {
+                    if ((gclid != null) && (gclid != "")) {
+                        if (taskUrl.contains("{t3}")) {
+                            taskUrl = taskUrl.replace("{t3}", gclid.toString())
+                        }
                         startActivity(
                             Intent(this@SplashActivity, WebVActivity::class.java)
                                 .putExtra(EXTRA_TASK_URL, taskUrl)
                         )
                         finish()
-                    } else if (value == BROWSER) {
-                        // launch browser with task url
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("")
+                    } else {
+                        startActivity(
+                            Intent(this@SplashActivity, WebVActivity::class.java)
+                                .putExtra(EXTRA_TASK_URL, taskUrl)
                         )
-
-                        logEvent("task-url-browser")
-                        startActivity(browserIntent)
                         finish()
                     }
                 } else if (url.contains("/main")) {
@@ -155,18 +180,8 @@ class SplashActivity : BaseActivity() {
 
         progressBar.visibility = View.VISIBLE
 
-        database = FirebaseDatabase.getInstance().reference
-
-        FirebaseDynamicLinks.getInstance().getDynamicLink(intent)
-            .addOnSuccessListener {
-                if (it != null) {
-                    database.child("FirebaseDynamics").push().setValue(it.link.toString())
-                }
-            }
-
         getValuesFromDatabase({
             dataSnapshot = it
-
 
             // load needed url to determine if user is suitable
             webView.loadUrl(it.child(SPLASH_URL).value as String)
