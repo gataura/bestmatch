@@ -19,6 +19,8 @@
     <string name="race">Race:</string>
     <string name="reg_form_email">Email</string>
     <string name="reg_form_password">Password</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="default_notification_channel_name">Dating app</string>
 
     <string-array name="days">
         <item>01</item>

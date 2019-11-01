@@ -63,7 +63,7 @@ class SplashActivity : BaseActivity() {
 
         firebaseAnalytic = FirebaseAnalytics.getInstance(this)
 
-        prefs = getSharedPreferences("com.datingapp.reallove", Context.MODE_PRIVATE)
+        prefs = getSharedPreferences("com.bestmatch.foryou", Context.MODE_PRIVATE)
         prefs.edit().putString("sessionTime", DateTime.now().toString()).apply()
 
         checkReturn()
