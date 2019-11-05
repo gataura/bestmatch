@@ -21,35 +21,35 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
 
 
-    <compatible-screens>
-        <screen android:screenSize="small" android:screenDensity="ldpi" />
-        <screen android:screenSize="small" android:screenDensity="mdpi" />
-        <screen android:screenSize="small" android:screenDensity="hdpi" />
-        <screen android:screenSize="small" android:screenDensity="xhdpi" />
-        <screen android:screenSize="small" android:screenDensity="xxhdpi" />
-        <screen android:screenSize="normal" android:screenDensity="ldpi" />
-        <screen android:screenSize="normal" android:screenDensity="mdpi" />
-        <screen android:screenSize="normal" android:screenDensity="hdpi" />
-        <screen android:screenSize="normal" android:screenDensity="xhdpi" />
-        <screen android:screenSize="normal" android:screenDensity="xxhdpi" />
-        <screen android:screenSize="large" android:screenDensity="ldpi" />
-        <screen android:screenSize="large" android:screenDensity="mdpi" />
-        <screen android:screenSize="large" android:screenDensity="hdpi" />
-        <screen android:screenSize="large" android:screenDensity="xhdpi" />
+<!--    <compatible-screens>-->
+<!--        <screen android:screenSize="small" android:screenDensity="ldpi" />-->
+<!--        <screen android:screenSize="small" android:screenDensity="mdpi" />-->
+<!--        <screen android:screenSize="small" android:screenDensity="hdpi" />-->
+<!--        <screen android:screenSize="small" android:screenDensity="xhdpi" />-->
+<!--        <screen android:screenSize="small" android:screenDensity="xxhdpi" />-->
+<!--        <screen android:screenSize="normal" android:screenDensity="ldpi" />-->
+<!--        <screen android:screenSize="normal" android:screenDensity="mdpi" />-->
+<!--        <screen android:screenSize="normal" android:screenDensity="hdpi" />-->
+<!--        <screen android:screenSize="normal" android:screenDensity="xhdpi" />-->
+<!--        <screen android:screenSize="normal" android:screenDensity="xxhdpi" />-->
+<!--        <screen android:screenSize="large" android:screenDensity="ldpi" />-->
+<!--        <screen android:screenSize="large" android:screenDensity="mdpi" />-->
+<!--        <screen android:screenSize="large" android:screenDensity="hdpi" />-->
+<!--        <screen android:screenSize="large" android:screenDensity="xhdpi" />-->
 
-        <!-- all xlarge size screens -->
-        <screen android:screenSize="xlarge" android:screenDensity="ldpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="mdpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="hdpi" />
-        <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />
+<!--        &lt;!&ndash; all xlarge size screens &ndash;&gt;-->
+<!--        <screen android:screenSize="xlarge" android:screenDensity="ldpi" />-->
+<!--        <screen android:screenSize="xlarge" android:screenDensity="mdpi" />-->
+<!--        <screen android:screenSize="xlarge" android:screenDensity="hdpi" />-->
+<!--        <screen android:screenSize="xlarge" android:screenDensity="xhdpi" />-->
 
-        <!-- Special case for Nexus 7 -->
-        <screen android:screenSize="large" android:screenDensity="213" />
+<!--        &lt;!&ndash; Special case for Nexus 7 &ndash;&gt;-->
+<!--        <screen android:screenSize="large" android:screenDensity="213" />-->
 
-        <screen android:screenSize="normal" android:screenDensity="480" />
-        <screen android:screenSize="large" android:screenDensity="480" />
-        <screen android:screenSize="xlarge" android:screenDensity="480" />
-    </compatible-screens>
+<!--        <screen android:screenSize="normal" android:screenDensity="480" />-->
+<!--        <screen android:screenSize="large" android:screenDensity="480" />-->
+<!--        <screen android:screenSize="xlarge" android:screenDensity="480" />-->
+<!--    </compatible-screens>-->
 
     <supports-screens
             android:smallScreens="true"
