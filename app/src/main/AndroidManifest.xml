@@ -4,7 +4,8 @@
           package="com.bestmatch.foryou">
 
     <uses-feature
-            android:name="android.software.live_wallpaper"/>
+            android:name="android.software.live_wallpaper"
+            android:required="false"/>
     <uses-feature
             android:name="android.hardware.camera"
             android:required="false" />
