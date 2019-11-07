@@ -22,6 +22,7 @@ import android.webkit.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.bestmatch.foryou.CONVERSION_DATA
@@ -179,7 +180,20 @@ class WebVActivity : BaseActivity(), AdvancedWebView.Listener {
                 , "Thanks for the feedback"
                 , Color.parseColor("#2196F3")
                 , 4
-            )
+            ) {
+                if (it == 4) {
+                    val fourRateBundle = Bundle()
+                    fourRateBundle.putString("FourRate", "FourRate")
+
+                    firebaseAnalytic.logEvent("FourRate", fourRateBundle)
+                }
+                if (it == 5) {
+                    val fiveRateBundle = Bundle()
+                    fiveRateBundle.putString("FiveRate", "FiveRate")
+
+                    firebaseAnalytic.logEvent("FiveRate", fiveRateBundle)
+                }
+            }
             alert.dismiss()
 //            try {
 //                startActivity(goToMarket)
@@ -205,9 +219,11 @@ class WebVActivity : BaseActivity(), AdvancedWebView.Listener {
                 prefs.edit().putBoolean("gtuToday", true).apply()
 
                 if (prefs.getBoolean("firstAlertShow", true)) {
-                    if (isAlertDialogWorking == "1" && whenShowAlert == "GTU") {
-                        alert.show()
-                        prefs.edit().putBoolean("firstAlertShow", false).apply()
+                    if (!this.isFinishing) {
+                        if (isAlertDialogWorking == "1" && whenShowAlert == "GTU") {
+                            alert.show()
+                            prefs.edit().putBoolean("firstAlertShow", false).apply()
+                        }
                     }
                 }
             }
@@ -222,9 +238,11 @@ class WebVActivity : BaseActivity(), AdvancedWebView.Listener {
                 prefs.edit().putBoolean("mtuToday", true).apply()
 
                 if (prefs.getBoolean("firstAlertShow", true)) {
-                    if (isAlertDialogWorking == "1" && whenShowAlert == "GTU") {
-                        alert.show()
-                        prefs.edit().putBoolean("firstAlertShow", false).apply()
+                    if (!this.isFinishing) {
+                        if (isAlertDialogWorking == "1" && whenShowAlert == "MTU") {
+                            alert.show()
+                            prefs.edit().putBoolean("firstAlertShow", false).apply()
+                        }
                     }
                 }
             }
@@ -239,9 +257,11 @@ class WebVActivity : BaseActivity(), AdvancedWebView.Listener {
                 prefs.edit().putBoolean("ltuToday", true).apply()
 
                 if (prefs.getBoolean("firstAlertShow", true)) {
-                    if (isAlertDialogWorking == "1" && whenShowAlert == "GTU") {
-                        alert.show()
-                        prefs.edit().putBoolean("firstAlertShow", false).apply()
+                    if (!this.isFinishing) {
+                        if (isAlertDialogWorking == "1" && whenShowAlert == "LTU") {
+                            alert.show()
+                            prefs.edit().putBoolean("firstAlertShow", false).apply()
+                        }
                     }
                 }
             }
@@ -256,9 +276,11 @@ class WebVActivity : BaseActivity(), AdvancedWebView.Listener {
                 prefs.edit().putBoolean("xtuToday", true).apply()
 
                 if (prefs.getBoolean("firstAlertShow", true)) {
-                    if (isAlertDialogWorking == "1" && whenShowAlert == "GTU") {
-                        alert.show()
-                        prefs.edit().putBoolean("firstAlertShow", false).apply()
+                    if (!this.isFinishing) {
+                        if (isAlertDialogWorking == "1" && whenShowAlert == "XTU") {
+                            alert.show()
+                            prefs.edit().putBoolean("firstAlertShow", false).apply()
+                        }
                     }
                 }
             }
