@@ -91,8 +91,9 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+
         <receiver
-                android:name="com.bestmatch.foryou.ReferrerDataReceiver"
+                android:name="com.bestmatch.foryou.InstallReceiver"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>

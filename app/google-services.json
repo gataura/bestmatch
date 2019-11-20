@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "982195816735",
-    "firebase_url": "https://bestmatch-650da.firebaseio.com",
-    "project_id": "bestmatch-650da",
-    "storage_bucket": "bestmatch-650da.appspot.com"
+    "project_number": "12101456983",
+    "firebase_url": "https://bestmatch2-24db7.firebaseio.com",
+    "project_id": "bestmatch2-24db7",
+    "storage_bucket": "bestmatch2-24db7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:982195816735:android:270df1c0d0ef3f11a9c82a",
+        "mobilesdk_app_id": "1:12101456983:android:e8ce068a36075298dabf12",
         "android_client_info": {
           "package_name": "com.bestmatch.foryou"
         }
       },
       "oauth_client": [
         {
-          "client_id": "982195816735-c5f3cuvcf3ip369ptt4qcpd1og6n0sf2.apps.googleusercontent.com",
+          "client_id": "12101456983-4fk1qpq17h5i67c2sdca0ocreq7i1tmq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChjgMgFGe2tPLiibKxxyZvFPrJRRMSbK0"
+          "current_key": "AIzaSyAtxkxnt6fkgbJa47nEVyZ_6WCg5g68ryQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "982195816735-c5f3cuvcf3ip369ptt4qcpd1og6n0sf2.apps.googleusercontent.com",
+              "client_id": "12101456983-4fk1qpq17h5i67c2sdca0ocreq7i1tmq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -53,10 +53,6 @@ class SplashActivity : BaseActivity() {
 
     override fun getContentView(): Int = R.layout.activity_web_v
 
-    var urlFromIntent = "not"
-    var urlFromIntent2 = "not"
-    var urlFromReferClient = "ref not"
-
     override fun initUI() {
         webView = web_view
         progressBar = progress_bar
@@ -72,28 +68,6 @@ class SplashActivity : BaseActivity() {
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
             .init()
-
-        gclid = getPreferer(this)
-        getGclid()
-    }
-
-    fun getPreferer(context: Context): String? {
-        val sp = PreferenceManager.getDefaultSharedPreferences(context)
-        if (!sp.contains(REFERRER_DATA)) {
-            return "Didn't got any referrer follow instructions"
-        }
-        return sp.getString(REFERRER_DATA, null)
-    }
-
-    fun getGclid(){
-        if (gclid != null) {
-            if (gclid!!.contains("gclid")) {
-                gclid = gclid?.substringAfter("gclid=")
-                gclid = gclid?.substringBefore("&conv")
-            } else {
-                gclid = null
-            }
-        }
     }
 
 
@@ -134,16 +108,6 @@ class SplashActivity : BaseActivity() {
 
                     database = FirebaseDatabase.getInstance().reference
 
-                    if (dataSnapshot.child("gclidRecord").value.toString() == "1") {
-                        if (getPreferer(this@SplashActivity) != "Didn't got any referrer follow instructions") {
-                            database.child("hashGclid").push().setValue("${getPreferer(this@SplashActivity)} Country: ${resources.configuration.locale.country} Language: ${Locale.getDefault().language}")
-                            val gtuOneBundle = Bundle()
-                            gtuOneBundle.putString("hashGclid", "${getPreferer(this@SplashActivity)} Country: ${resources.configuration.locale.country} Language: ${Locale.getDefault().language}")
-
-                            firebaseAnalytic.logEvent("hashGclid", gtuOneBundle)
-                        }
-                    }
-
 
                     if (prefs.getBoolean("firstrun", true)) {
                         prefs.edit().putString("dateInstall", DateTime.now().toString()).apply()
@@ -151,22 +115,11 @@ class SplashActivity : BaseActivity() {
                     }
 
                     taskUrl = prefs.getString("endurl", taskUrl).toString()
-                    if ((gclid != null) && (gclid != "")) {
-                        if (taskUrl.contains("{t3}")) {
-                            taskUrl = taskUrl.replace("{t3}", gclid.toString())
-                        }
                         startActivity(
                             Intent(this@SplashActivity, WebVActivity::class.java)
                                 .putExtra(EXTRA_TASK_URL, taskUrl)
                         )
                         finish()
-                    } else {
-                        startActivity(
-                            Intent(this@SplashActivity, WebVActivity::class.java)
-                                .putExtra(EXTRA_TASK_URL, taskUrl)
-                        )
-                        finish()
-                    }
                 } else if (url.contains("/main")) {
                     val taskUrl = dataSnapshot.child(TASK_URL).value as String
                     startActivity(Intent(this@SplashActivity, GlavnayaActivity::class.java)
