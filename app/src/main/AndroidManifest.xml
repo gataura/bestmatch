@@ -90,6 +90,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
+            android:networkSecurityConfig="@xml/network"
             tools:ignore="GoogleAppIndexingWarning">
 
         <receiver

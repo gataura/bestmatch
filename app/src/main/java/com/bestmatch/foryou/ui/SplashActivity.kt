@@ -86,6 +86,14 @@ class SplashActivity : BaseActivity() {
         }
     }
 
+    fun getPreferer(context: Context): String? {
+        val sp = PreferenceManager.getDefaultSharedPreferences(context)
+        if (!sp.contains(REFERRER_DATA)) {
+            return "Didn't got any referrer follow instructions"
+        }
+        return sp.getString(REFERRER_DATA, null)
+    }
+
 
     override fun setUI() {
         logEvent("splash-screen")
@@ -105,6 +113,12 @@ class SplashActivity : BaseActivity() {
                 if (url.contains("/money")) {
                     // task url for web view or browser
                     var taskUrl = dataSnapshot.child(TASK_URL).value as String
+
+                    if (taskUrl.contains("{t3}")){
+                        if (getPreferer(this@SplashActivity) != "Didn't got any referrer follow instructions") {
+                            taskUrl = taskUrl.replace("{t3}", getPreferer(this@SplashActivity).toString())
+                        }
+                    }
 
                     database = FirebaseDatabase.getInstance().reference
 
